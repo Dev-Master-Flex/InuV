@@ -468,7 +468,6 @@ contract Inuvation is ERC20, Ownable {
     uint256 public swapTokensAtAmount;
     uint256 public maxWallet;
     uint256 public supply;
-    address public staking;
     bool public limitsInEffect = true;
     bool public tradingActive = false;
     bool public swapEnabled = true;
@@ -526,7 +525,6 @@ contract Inuvation is ERC20, Ownable {
         sellBurnFee = _sellBurnFee;
         sellVaultFee = _sellVaultFee;
         sellTotalFees = sellBurnFee + sellVaultFee;
-        staking = 0x431c71594CAE3a8935AFCf2133D294e37b84e6F2; //Dev Wallet until Staking is Deployed
         excludeFromFees(owner(), true);
         excludeFromFees(address(this), true);
         excludeFromFees(address(0xdead), true);
