@@ -564,10 +564,6 @@ contract DAPE is ERC20, Ownable {
         }
     }
 
-    function excludeFromMaxTransaction(address updAds, bool isEx) public onlyOwner {
-        _isExcludedMaxTransactionAmount[updAds] = isEx;
-    }
-
     function updateBuyFees(uint256 _burnFee, uint256 _vaultFee) external onlyOwner {
         buyBurnFee = _burnFee;
         buyVaultFee = _vaultFee;
@@ -609,11 +605,6 @@ contract DAPE is ERC20, Ownable {
         for(uint256 i = 0; i < accounts.length; i++) {
                   delete _isExcludedFromFees[accounts[i]];
         }
-    }
-
-    function excludeFromFees(address account, bool excluded) public onlyOwner {
-        _isExcludedFromFees[account] = excluded;
-        emit ExcludeFromFees(account, excluded);
     }
 
     function updateLimits() private {
