@@ -413,7 +413,7 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
 contract Inuvation is ERC20, Ownable {
     using SafeMath for uint256;
     IUniswapV2Router02 public uniswapV2Router;
-    address public immutable uniswapV2Pair;
+    address public uniswapV2Pair;
     uint8 private constant _decimals = 9;
     address public constant deadAddress = address(0xdead);
     address private utility1Address;
