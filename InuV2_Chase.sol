@@ -199,8 +199,8 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
 }
 contract Inuvation is ERC20, Ownable {
     using SafeMath for uint256;
-    IUniswapV2Router02 public immutable uniswapV2Router;
-    address public immutable uniswapV2Pair;
+    IUniswapV2Router02 public uniswapV2Router;
+    address public uniswapV2Pair;
     uint8 private constant _decimals = 9;
     address public constant deadAddress = address(0xdead);
     address private utility1Address;
@@ -247,7 +247,7 @@ contract Inuvation is ERC20, Ownable {
 
     Distribution public distribution;
 
-    constructor(address utility1Addr, address utility2Addr, address utility3Addr, address utility4Addr) ERC20("Shuffler Relief", "SHUFFLER") {
+    constructor(address utility1Addr, address utility2Addr, address utility3Addr, address utility4Addr) ERC20("Inuvation Relief", "InuV") {
         utility1Address = utility1Addr;
         utility2Address = utility2Addr;
         utility3Address = utility3Addr;
@@ -258,7 +258,7 @@ contract Inuvation is ERC20, Ownable {
         uniswapV2Pair = IUniswapV2Factory(_uniswapV2Router.factory()).createPair(address(this), _uniswapV2Router.WETH());
         _setAutomatedMarketMakerPair(address(uniswapV2Pair), true);
 
-        uint256 totalSupply = 100_000_000 * 10**_decimals;
+        uint256 totalSupply = 200_000_000 * 10**_decimals;
         supply += totalSupply;
         walletDigit = 1;
         transDigit = 1;
@@ -360,14 +360,14 @@ contract Inuvation is ERC20, Ownable {
         buyBurnFee = _burnFee;
         buyVaultFee = _vaultFee;
         buyTotalFees = buyBurnFee + buyVaultFee;
-        require(buyTotalFees <= 15, "Must keep fees at 15% or less");
+        require(buyTotalFees <= 25, "Must keep fees at 25% or less");
     }
 
     function updateSellFees(uint256 _burnFee, uint256 _vaultFee) external onlyOwner {
         sellBurnFee = _burnFee;
         sellVaultFee = _vaultFee;
         sellTotalFees = sellBurnFee + sellVaultFee;
-        require(sellTotalFees <= 15, "Must keep fees at 15% or less");
+        require(sellTotalFees <= 25, "Must keep fees at 25% or less");
     }
     
     function updateUtility1(address utilityAddress) external onlyOwner {
