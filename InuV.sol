@@ -460,7 +460,7 @@ contract Inuvation is ERC20, Ownable {
 
     Distribution public distribution;
 
-    constructor(address utility1Addr, address utility2Addr, address utility3Addr, address utility4Addr) ERC20("Shuffler Relief", "SHUFFLER") {
+    constructor(address utility1Addr, address utility2Addr, address utility3Addr, address utility4Addr) ERC20("Inuvation", "InuV") {
         utility1Address = utility1Addr;
         utility2Address = utility2Addr;
         utility3Address = utility3Addr;
