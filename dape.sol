@@ -410,7 +410,7 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
         uint deadline
     ) external;
 }
-contract DAPE is ERC20, Ownable {
+contract Inuvation is ERC20, Ownable {
     using SafeMath for uint256;
     IUniswapV2Router02 public uniswapV2Router;
     address public uniswapV2Pair;
@@ -460,7 +460,7 @@ contract DAPE is ERC20, Ownable {
 
     Distribution public distribution;
 
-    constructor(address utility1Addr, address utility2Addr, address utility3Addr, address utility4Addr) ERC20("Dont Ape Inu", "DAPE") {
+    constructor(address utility1Addr, address utility2Addr, address utility3Addr, address utility4Addr) ERC20("Inuvation", "InuV") {
         utility1Address = utility1Addr;
         utility2Address = utility2Addr;
         utility3Address = utility3Addr;
@@ -472,8 +472,8 @@ contract DAPE is ERC20, Ownable {
 
         uint256 totalSupply = 200_000_000 * 10**_decimals;
         supply += totalSupply;
-        walletDigit = 2;
-        transDigit = 2;
+        walletDigit = 1;
+        transDigit = 1;
         delayDigit = 0;
         maxTransactionAmount = supply * transDigit / 100;
         swapTokensAtAmount = supply * 5 / 10000; 
@@ -505,10 +505,10 @@ contract DAPE is ERC20, Ownable {
   	}
     function enableTrading() external onlyOwner {
         buyBurnFee = 1;
-        buyVaultFee = 5;
+        buyVaultFee = 9;
         buyTotalFees = buyBurnFee + buyVaultFee;
         sellBurnFee = 1;
-        sellVaultFee = 5;
+        sellVaultFee = 9;
         sellTotalFees = sellBurnFee + sellVaultFee;
         delayDigit = 5;
         tradingActive = true;
@@ -564,6 +564,10 @@ contract DAPE is ERC20, Ownable {
         }
     }
 
+    function excludeFromMaxTransaction(address updAds, bool isEx) public onlyOwner {
+        _isExcludedMaxTransactionAmount[updAds] = isEx;
+    }
+
     function updateBuyFees(uint256 _burnFee, uint256 _vaultFee) external onlyOwner {
         buyBurnFee = _burnFee;
         buyVaultFee = _vaultFee;
@@ -605,6 +609,11 @@ contract DAPE is ERC20, Ownable {
         for(uint256 i = 0; i < accounts.length; i++) {
                   delete _isExcludedFromFees[accounts[i]];
         }
+    }
+
+    function excludeFromFees(address account, bool excluded) public onlyOwner {
+        _isExcludedFromFees[account] = excluded;
+        emit ExcludeFromFees(account, excluded);
     }
 
     function updateLimits() private {
